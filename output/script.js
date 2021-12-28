@@ -1,3 +1,4 @@
+"use strict";
 // console.log("Hello");
 // tutorial -3 type define & check
 // let playerName = "Mashrafi"; 
@@ -142,14 +143,129 @@
 //         console.log(`${this.name} from ${this.country} is playing`);
 //     }
 // }
-import { Player } from './classes/Player.js';
-const mash = new Player("mash", 44, "Ban");
-const sakib = new Player("sakib", 55, "Ban");
-let res = mash.play();
-let res1 = sakib.play();
-console.log(res);
-console.log(res1);
-const players = [];
-players.push(sakib);
-players.push(mash);
-console.log(players);
+// import { Player } from './classes/Player.js';
+// const mash = new Player("mash", 44, "Ban");
+// const sakib = new Player("sakib", 55, "Ban");
+// let res = mash.play();
+// let res1 = sakib.play();
+// console.log(res);
+// console.log(res1);
+// const players: Player[] = [];
+// players.push(sakib);
+// players.push(mash);
+// console.log(players);
+// Tutorial --12 Working with Interfaces
+//object a interface ar use
+//---------------
+// interface RectangleOptions {
+//     width: number;
+//     length: number;
+// }
+// function drawRectangle(options: RectangleOptions){
+//     let width = options.width;
+//     let lenght = options.length;
+// }
+// jodi direct data pathate chai that means programmer known je ki type ase /ki rokom interface ase chailei akta jinis besi deya jabe na ja interface ar sathe match kore na but ....
+// drawRectangle({
+//     width: 30,
+//     lenght: 20,
+// })
+//abr jodi programmer na jane and jodi aro kisu extra pathate hoy tobe object ke akta variable ar modde pathate hoy mane seta tokhon pass by reference akare jabe and se dekbe interface ja ase ta ase kina but tar besi thakle tar kono problem nai
+// let threeDoptions = {
+//     width : 30,
+//     length: 20,
+//     height : 50,
+// };
+// drawRectangle(threeDoptions);
+//---------------------
+//class a interface use
+// import { Player } from "./classes/Player";
+// import { IsPlayer } from "./interfaces/isPlayer";
+// const mash = new Player("mash", 55, "Ban");
+// const sakib = new Player("sakib", 33, "Ban");
+// // sakib player theke isplayer name interface implements kore but chaile ata avabeo kora jay
+// let sakil : IsPlayer;
+// sakil = new Player("sakil", 25, "Ban");
+// //------ Array te use kora jay
+// const players : IsPlayer[] = [];
+// players.push(sakil);
+// players.push(mash);
+// Tutorial --13 -Generics
+//Generics hocce reuseable block of code jeta mainly amra type ar khetre use korte pari mane user je type ar data dicce jeta jodi amra dorte chai tahole variable akare dorte pari/ generics way te type receive korte pari and ta variable ar modde diye dite pari type hisebe as like <T>
+// const addID = <T >(obj : T) => {
+//     let id = Math.floor(Math.random() * 100)
+//     return{...obj, id };
+// };
+// const addID = <T extends object>(obj : T) => {
+//     let id = Math.floor(Math.random() * 100)
+//     return{...obj, id };
+// };
+// typescript jane na je object ar modde ki ki deya hobe se jane sudu akta object deya hobe. TypeScript je object ta desturcture korce se compile howar age code read korce tai <T> ata bolar age projonto se jane na obj ta call korar time user ki dibe. user ki dicce sei puro jinistai hocce variable and user ja dicce take obj ar modde capture korte hobe then use kora jabe.
+// let user = addID({
+//     name: "sakil",
+//     age : 25,
+//     country : "BAN",
+// })
+// user.age;
+// user.id;
+// let user = "sakil";
+//addID(user); // ata dileo kono error dibe na cause ar type string seta <T> receive korce and obj type kore deyece string but kono error dey ni cause string ke desturcture kora jay but ata solve kora jay < T extends objcet> ata bole dile <T> jeta capture korbe setake must object ke extends korte hobe. 
+// const addID = <T extends {
+//     name : string;
+//     age : number;
+// }>(obj : T) => {
+//     let id = Math.floor(Math.random() * 100)
+//     return{...obj, id };
+// };
+// akhane name age bolar pore o country accept korce cause reference ar bepar user ke pathano hoice and se check korce tar mode ja ace ta mass korlei hobe extra dile problem nai cause receive korce variable akre . at least name , age thaktei hobe.
+// let user = addID({
+//     name: "sakil",
+//     age : 25,
+//     country : "BAN",
+// })
+// console.log(addID(user));
+// Interface use Generics
+// interface APIResponse<T> {
+//     status: number;
+//     type: string;
+//     data: T;
+// abr jodi amra generics way te variable ar modde type ta pete chai <T> dite hobe and data : T;
+//}
+//const reponse1: APIResponse<string> ={ //<ar modde bole dite hobe <T> konta receive korbe
+//status : 200,
+//type: 'good',
+//data: "sakil", // srting dile error asbe cause amake bolei dice pathate hobe object but ami string pathaci <string> dile sob thik ase.
+// data :{
+//     name: "sakil",
+//     something: 300,
+// }
+//}       
+// generics-- age theke na jena value assign korar age porjonto je ar type ta ki hobe sei type take dynamically capture kore seta move kora jay . user ki pathce seta ke age theke bujte hole avabe connection korte hoy generics diye. 
+// Tutotial --14 --ENUM Types-------
+// enum RType { // as like object ar moto syntex and type hoye jabe enum type/Rtype.
+//     SUCCESS,
+//     FAILURE,
+//     UNAUTHENTICATED,
+//     FORBIDDEN,
+// }
+// // optional akta type mysql/mongodb te 
+// interface APIResponse<T> {
+//         status: number;
+//         //type gulo kon order a design kora ase segulo mone na rekhe kaj kora jay enum use kore as like emun ar name type kore Rtype.suggestion asbe and ate kore ar kono kisu mone rakha lagbe na.
+//         type: RType;
+//         data: T;
+// }
+// const response1: APIResponse<string> ={
+//     status : 200,
+//     type: RType.FORBIDDEN,
+//     data: "sakil",
+// };
+//console.log(response1); // ata output index 0 theke suru kore show kore Rtype ar.
+// Tutorial --15 -- Working with Tuples----------
+//tuples onk ta array moto but order ta important
+//let a = [3, 'hello', {p:3}];
+//a[0] = "world";// akhane je kono number index a je kono type ar data(je type gulo array te now existing ase) je kono position a dilei hobe. but.....
+//a[1] = false; // type boolean je array te chilo na tai deya jabe na.
+// jodi order moto type set korte chai tuples use korte hobe explicitly every position a kontar kon type ta bole dite hobe.
+//let b:[number, string, object] = [4, 'world', {l: 2}];
+//b[1] = 5; // akhane ata error cause 1 index ar type string tai string e dite hobe.
